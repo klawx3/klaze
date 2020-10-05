@@ -1,17 +1,34 @@
 package org.klawx3.klaze.resources;
 
 
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.klawx3.klaze.db.model.User;
+import org.klawx3.klaze.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RestController;
 
-@Controller
+
+import java.util.List;
+
+@RestController
 public class TestResource {
 
-    @RequestMapping(value = "/",method = RequestMethod.GET)
-    public String index(Model model){
-        String texto = "Hola mundo wea";
-        model.addAttribute("texto",texto);
-        return "index";
+    @Autowired
+    private UserService userService;
+
+    @GetMapping(value = "/users")
+    public List<User> getListUser(){
+        return userService.getAllUsers();
+    }
+
+    @GetMapping(value = "/admin")
+    public String getPageTest(){
+        return "Admin";
+    }
+
+    @GetMapping(value = "/test")
+    public String getTest(){
+        return "Testo";
     }
 }
